@@ -25,7 +25,7 @@ jobs:
           backend:
             - '.github/workflows/**'
           frontend:
-            - 'frontend/**':
+            - 'frontend/**'
   build:
     needs: changes
     if: ${{ needs.changes.outputs.backend == 'true' }}
