@@ -17,7 +17,6 @@ jobs:
     steps:
       - run: echo ${{ env.GITHUB_HEAD_REF }}
       - run: echo $GITHUB_RUN_NUMBER
-      - run: echo ${{ GITHUB_RUN_NUMBER }}
       - run: echo ${{ env.GITHUB_RUN_NUMBER }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
