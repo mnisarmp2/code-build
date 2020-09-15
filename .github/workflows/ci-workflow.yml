@@ -20,9 +20,9 @@ jobs:
       - run: echo ${{ env.REGION }}
       - run: echo $GITHUB_RUN_NUMBER
       - run: echo ${{ env.GITHUB_RUN_NUMBER }}
-      - name: Configure AWS Credentials
+      - name: Configure AWS Credentials1
         uses: aws-actions/configure-aws-credentials@v1
-        if: ${{ github.ref == 'refs/heads/master1' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -38,9 +38,9 @@ jobs:
       - run: echo ${{ env.REGION }}
       - run: echo $GITHUB_RUN_NUMBER
       - run: echo ${{ env.GITHUB_RUN_NUMBER }}
-      - name: Configure AWS Credentials
+      - name: Configure AWS Credentials2
         uses: aws-actions/configure-aws-credentials@v1
-        if: ${{ github.ref == 'refs/heads/master1' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
