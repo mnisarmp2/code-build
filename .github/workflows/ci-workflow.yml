@@ -15,7 +15,8 @@ jobs:
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.head_ref }}
+      - run: echo ${{ github.run_number }}
+      - run: echo ${{ env.REGION }}
       - run: echo $GITHUB_RUN_NUMBER
       - run: echo ${{ env.GITHUB_RUN_NUMBER }}
       - name: Configure AWS Credentials
