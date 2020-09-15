@@ -2,10 +2,11 @@ name: CodeBuildPOC
 # This workflow is triggered on pushes to the repository.
 on:
   push:
-    branches: 
+    branches:     
       - master
+      - development
+      - UAT
 env:
-  DEPLOYMENT_ENV: dev
   REGION: us-east-2
 jobs:
   build:
@@ -14,6 +15,7 @@ jobs:
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ GITHUB_HEAD_REF }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -21,6 +23,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.REGION }}
       - name: Run CodeBuild
-        uses: aws-actions/aws-codebuild-run-build@v1.0.3
+        uses: aws-actions/aws-codebuild-run-build@v1.0.3       
         with:
-          project-name: ${{ env.DEPLOYMENT_ENV }}-test1-graphql-codebuild
+          project-name: dev-test1-graphql-codebuild
