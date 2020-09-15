@@ -3,7 +3,7 @@ name: CodeBuildPOC
 on:
   push:
     branches:     
-      - master1
+      - master
       - development
       - UAT
 env:
@@ -22,6 +22,7 @@ jobs:
       - run: echo ${{ env.GITHUB_RUN_NUMBER }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
+        if: ${{ github.ref == "refs/heads/master" }}
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
