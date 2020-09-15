@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.run_number }}
+      - run: echo ${{ github.ref }}
       - run: echo ${{ env.REGION }}
       - run: echo $GITHUB_RUN_NUMBER
       - run: echo ${{ env.GITHUB_RUN_NUMBER }}
