@@ -5,7 +5,7 @@ on:
     branches:     
       - master
       - development
-      - UAT
+      - UAT1
 env:
   REGION: us-east-2
 jobs:
