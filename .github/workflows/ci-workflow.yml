@@ -23,7 +23,7 @@ jobs:
       with:
         filters: |
           backend:
-            - 'workflows/*'
+            - 'workflows/**'
           frontend:
             - 'frontend/**':
   build:
