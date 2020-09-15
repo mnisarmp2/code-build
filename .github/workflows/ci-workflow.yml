@@ -9,7 +9,26 @@ on:
 env:
   REGION: us-east-2
 jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+    # For pull requests it's not necessary to checkout the code
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          backend:
+            - '.github/workflows/*'
+          frontend:
+            - 'frontend/**':
   build:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
     # Job name is CodeBuildPOC
     name: CodeBuildPOCJob1
     # This job runs on Linux
