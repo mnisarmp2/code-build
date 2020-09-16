@@ -7,7 +7,7 @@ on:
       - UAT
     paths: 
       - folder-1/**
-      - folder-2/*
+      - folder-2/**
 env:
   REGION: us-east-2
   PROJECT_NAME: 'test1-graphql-codebuild'
