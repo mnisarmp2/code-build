@@ -8,8 +8,8 @@ on:
       - UAT
 env:
   REGION: us-east-2
-  PROJECT_NAME: 'graphql'
   DEPLOYMENT_ENV: 'none'
+  PROJECT_NAME: 'graphql'
 jobs:
   # JOB to run change detection
   pre-build:
@@ -23,13 +23,13 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
   build:
     needs: pre-build
-    if: ${{ $DEPLOYMENT_ENV == 'dev' || $DEPLOYMENT_ENV == 'uat' || $DEPLOYMENT_ENV == 'prod' }}
     name: CodeBuildJob
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.run_number }}
       - run: echo ${{ github.ref }}
       - run: echo ${{ env.DEPLOYMENT_ENV }}
+      - run: echo ${{ env.PROJECT_NAME }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
