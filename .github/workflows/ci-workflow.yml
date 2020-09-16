@@ -19,14 +19,12 @@ jobs:
         if: ${{ github.ref == 'refs/heads/development' }}
       - run: echo "::set-env name=DEPLOYMENT_ENV::uat"
         if: ${{ github.ref == 'refs/heads/UAT' }}
-      - run: echo "::set-env name=DEPLOYMENT_ENV::master"
+      - run: echo "::set-env name=DEPLOYMENT_ENV::prod"
         if: ${{ github.ref == 'refs/heads/master' }}
   build:
     needs: pre-build
-    if: ${{ needs.changes.outputs.backend == 'true' }}
-    # Job name is CodeBuildPOC
+    if: ${{ env.DEPLOYMENT_ENV == 'dev' || env.DEPLOYMENT_ENV == 'uat' || env.DEPLOYMENT_ENV == 'prod' }}
     name: CodeBuildJob
-    # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.run_number }}
@@ -34,7 +32,6 @@ jobs:
       - run: echo ${{ env.DEPLOYMENT_ENV }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
-        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
