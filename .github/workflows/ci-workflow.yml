@@ -1,5 +1,4 @@
-name: CodeBuildPOC
-# This workflow is triggered on pushes to the repository.
+name: GraphQLCodeBuild
 on:
   push:
     branches:     
