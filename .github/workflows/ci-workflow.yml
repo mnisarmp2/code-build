@@ -20,7 +20,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/UAT' }}
       - run: export DEPLOYMENT_ENV=prod
         if: ${{ github.ref == 'refs/heads/master' }}
-      - run: echo ${{ env.DEPLOYMENT_ENV }}
+      - run: echo ${{ DEPLOYMENT_ENV }}
   build:
     needs: pre-build
     name: CodeBuildJob
@@ -28,6 +28,7 @@ jobs:
     steps:
       - run: echo ${{ github.run_number }}
       - run: echo ${{ github.ref }}
+      - run: echo ${{ DEPLOYMENT_ENV }}
       - run: echo ${{ env.DEPLOYMENT_ENV }}
       - run: echo ${{ env.PROJECT_NAME }}
       - name: Configure AWS Credentials
