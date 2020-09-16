@@ -5,6 +5,9 @@ on:
       - master
       - development
       - UAT
+    paths: 
+      - folder1/*
+      - folder2/*
 env:
   REGION: us-east-2
   PROJECT_NAME: 'test1-graphql-codebuild'
@@ -30,8 +33,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.REGION }}
       
-      - name: Run CodeBuild
-        uses: aws-actions/aws-codebuild-run-build@v1.0.3       
-        with:
-          project-name: ${{ env.DEPLOYMENT_ENV }}-${{ env.PROJECT_NAME }}
+      # - name: Run CodeBuild
+        # uses: aws-actions/aws-codebuild-run-build@v1.0.3       
+        # with:
+          # project-name: ${{ env.DEPLOYMENT_ENV }}-${{ env.PROJECT_NAME }}
 
