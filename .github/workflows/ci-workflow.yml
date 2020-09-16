@@ -5,62 +5,38 @@ on:
     branches:     
       - master
       - development
-      - UAT1
+      - UAT
 env:
   REGION: us-east-2
+  PROJECT_NAME: 'graphql'
+  DEPLOYMENT_ENV: 'none'
 jobs:
   # JOB to run change detection
-  changes:
+  pre-build:
     runs-on: ubuntu-latest
-    # Set job outputs to values from filter step
-    outputs:
-      backend: ${{ steps.filter.outputs.backend }}
-      frontend: ${{ steps.filter.outputs.frontend }}
     steps:
-    # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          backend:
-            - 'github/workflows/**'
-          frontend:
-            - 'frontend/**'
+      - run: echo "::set-env name=DEPLOYMENT_ENV::dev"
+        if: ${{ github.ref == 'refs/heads/development' }}
+      - run: echo "::set-env name=DEPLOYMENT_ENV::uat"
+        if: ${{ github.ref == 'refs/heads/UAT' }}
+      - run: echo "::set-env name=DEPLOYMENT_ENV::master"
+        if: ${{ github.ref == 'refs/heads/master' }}
   build:
-    needs: changes
+    needs: pre-build
     if: ${{ needs.changes.outputs.backend == 'true' }}
     # Job name is CodeBuildPOC
-    name: CodeBuildPOCJob1
+    name: CodeBuildJob
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.run_number }}
       - run: echo ${{ github.ref }}
-      - run: echo ${{ env.REGION }}
-      - run: echo $GITHUB_RUN_NUMBER
-      - run: echo ${{ env.GITHUB_RUN_NUMBER }}
-      - name: Configure AWS Credentials1
+      - run: echo ${{ env.DEPLOYMENT_ENV }}
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.REGION }}
-  build-1:
-    # Job name is CodeBuildPOC
-    name: CodeBuildPOCJob2
-    # This job runs on Linux
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ github.run_number }}
-      - run: echo ${{ github.ref }}
-      - run: echo ${{ env.REGION }}
-      - run: echo $GITHUB_RUN_NUMBER
-      - run: echo ${{ env.GITHUB_RUN_NUMBER }}
-      - name: Configure AWS Credentials2
-        uses: aws-actions/configure-aws-credentials@v1
-        if: ${{ github.ref == 'refs/heads/master' }}
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.REGION }}
+
