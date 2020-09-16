@@ -30,7 +30,7 @@ jobs:
     steps:
       - run: echo ${{ github.run_number }}
       - run: echo ${{ github.ref }}
-      - run: echo ${{ jobs.pre-build.outputs.DEPLOYMENT_ENV }}
+      - run: echo ${{ needs.pre_build.outputs.DEPLOYMENT_ENV }}
       - run: echo ${{ env.PROJECT_NAME }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
