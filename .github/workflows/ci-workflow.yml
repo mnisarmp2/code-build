@@ -8,7 +8,7 @@ on:
     paths: 
       - folder-1/**
       - folder-2/**
-      - .github/workflows/graphql-ci.yml
+      - .github/workflows/ci-workflow.yml
 env:
   REGION: us-east-2
   PROJECT_NAME: 'test1-graphql-codebuild'
