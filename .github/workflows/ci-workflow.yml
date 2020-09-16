@@ -23,7 +23,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
   build:
     needs: pre-build
-    if: ${{ $env.DEPLOYMENT_ENV == 'dev' || $env.DEPLOYMENT_ENV == 'uat' || $env.DEPLOYMENT_ENV == 'prod' }}
+    if: ${{ $DEPLOYMENT_ENV == 'dev' || $DEPLOYMENT_ENV == 'uat' || $DEPLOYMENT_ENV == 'prod' }}
     name: CodeBuildJob
     runs-on: ubuntu-latest
     steps:
