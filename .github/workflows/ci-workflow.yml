@@ -24,7 +24,6 @@ jobs:
       - run: echo ${{ env.DEPLOYMENT_ENV }}
   build:
     needs: pre-build
-    name: CodeBuildJob
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.run_number }}
