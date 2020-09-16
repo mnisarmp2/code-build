@@ -9,24 +9,16 @@ env:
   REGION: us-east-2
   PROJECT_NAME: 'test1-graphql-codebuild'
 jobs:
-  pre-build:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      DEPLOYMENT_ENV: ${{ env.DEPLOYMENT_ENV }}
     steps:
+      - run: echo branch-href ${{ github.ref }}
       - run: echo "::set-env name=DEPLOYMENT_ENV::dev"
         if: ${{ github.ref == 'refs/heads/development' }}
       - run: echo "::set-env name=DEPLOYMENT_ENV::uat"
         if: ${{ github.ref == 'refs/heads/UAT' }}
       - run: echo "::set-env name=DEPLOYMENT_ENV::dev"
         if: ${{ github.ref == 'refs/heads/master' }}
-  build:
-    needs: pre-build
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ github.run_number }}
-      - run: echo ${{ github.ref }}
-      - run: echo ${{ needs.pre-build.outputs.DEPLOYMENT_ENV }}
       - run: echo ${{ env.PROJECT_NAME }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -37,5 +29,5 @@ jobs:
       - name: Run CodeBuild
         uses: aws-actions/aws-codebuild-run-build@v1.0.3       
         with:
-          project-name: ${{ needs.pre-build.outputs.DEPLOYMENT_ENV }}-${{ env.PROJECT_NAME }}
+          project-name: ${{ env.DEPLOYMENT_ENV }}-${{ env.PROJECT_NAME }}
 
