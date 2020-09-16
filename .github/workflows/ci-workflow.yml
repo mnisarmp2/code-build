@@ -1,4 +1,4 @@
-name: GraphQLCodeBuild
+name: GraphQLCI
 on:
   push:
     branches:     
