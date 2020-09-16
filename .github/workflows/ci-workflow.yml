@@ -20,6 +20,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/UAT' }}
       - run: export DEPLOYMENT_ENV=prod
         if: ${{ github.ref == 'refs/heads/master' }}
+      - run: echo ${{ env.DEPLOYMENT_ENV }}
   build:
     needs: pre-build
     name: CodeBuildJob
