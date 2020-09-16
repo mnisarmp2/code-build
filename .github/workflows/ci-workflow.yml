@@ -6,7 +6,7 @@ on:
       - development
       - UAT
     paths: 
-      - folder-1/*
+      - folder-1/**
       - folder-2/*
 env:
   REGION: us-east-2
