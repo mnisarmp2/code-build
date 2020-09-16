@@ -38,4 +38,3 @@ jobs:
         uses: aws-actions/aws-codebuild-run-build@v1.0.3       
         with:
           project-name: ${{ env.DEPLOYMENT_ENV }}-${{ env.PROJECT_NAME }}
-
