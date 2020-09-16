@@ -16,7 +16,6 @@ jobs:
     outputs:
       DEPLOYMENT_ENV: ${{ env.DEPLOYMENT_ENV }}
     steps:
-      - id: deployment_env
       - run: echo "::set-env name=DEPLOYMENT_ENV::dev"
         if: ${{ github.ref == 'refs/heads/development' }}
       - run: echo "::set-env name=DEPLOYMENT_ENV::uat"
